@@ -99,5 +99,18 @@ public class StringCalculatorTest {
         }
     }
 
+    /**
+     * Test case for ignoring numbers greater than 1000 in the input string.
+     * Verifies that the add() method correctly excludes numbers greater than 1000
+     * from the sum, while including numbers equal to or less than 1000.
+     */
+    @Test
+    public void testIgnoreNumbersGreaterThan1000() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(2, calculator.add("1001,2"), "Numbers greater than 1000 should be ignored");
+        assertEquals(1002, calculator.add("1000,2"), "Number 1000 should be included in the sum");
+    }
+
+
 
 }
