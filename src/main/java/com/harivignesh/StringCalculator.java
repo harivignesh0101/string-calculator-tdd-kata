@@ -1,6 +1,7 @@
 package com.harivignesh;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StringCalculator {
@@ -46,8 +47,10 @@ public class StringCalculator {
             int delimiterIndex = numbers.indexOf("\n");
             String delimiterPart = numbers.substring(2, delimiterIndex);
             if (delimiterPart.startsWith("[") && delimiterPart.endsWith("]")) {
-                delimiter = delimiterPart.substring(1, delimiterPart.length() - 1); // Extract delimiter without brackets
-                delimiter = java.util.regex.Pattern.quote(delimiter); // Escape special regex characters
+                String[] delimiters = delimiterPart.substring(1, delimiterPart.length() - 1).split("]\\[");
+                delimiter = String.join("|", Arrays.stream(delimiters)
+                        .map(java.util.regex.Pattern::quote)
+                        .toArray(String[]::new));
             } else {
                 delimiter = java.util.regex.Pattern.quote(delimiterPart); // Single-character delimiter
             }
