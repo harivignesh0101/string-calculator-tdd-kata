@@ -20,6 +20,7 @@ public class StringCalculator {
         if (numbers.startsWith("//")) {
             int delimiterIndex = numbers.indexOf("\n");
             delimiter = numbers.substring(2, delimiterIndex);
+            delimiter = java.util.regex.Pattern.quote(delimiter);  // Escape special regex characters in the delimiter
             numbers = numbers.substring(delimiterIndex + 1);
         }
         String[] parts = numbers.split(delimiter);
