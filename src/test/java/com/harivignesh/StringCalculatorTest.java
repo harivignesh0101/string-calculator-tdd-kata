@@ -52,5 +52,19 @@ public class StringCalculatorTest {
         assertEquals(32, calculator.add("1,2,3,5,10,11"), "Sum of unknown number of numbers should be correct");
     }
 
+    /**
+     * Test case for handling new line delimiters in the input string.
+     * Verifies that the add() method correctly interprets new lines
+     * as valid delimiters alongside commas, ensuring the sum is calculated
+     * accurately for inputs with mixed delimiters.
+     */
+    @Test
+    public void testNewLineDelimiter() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("1\n2,3"), "New line as delimiter should work");
+        assertEquals(10, calculator.add("1,2\n3,4"), "Mix of commas and new lines should work");
+    }
+
+
 
 }
