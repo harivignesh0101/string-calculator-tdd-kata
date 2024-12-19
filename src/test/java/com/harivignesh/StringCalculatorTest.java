@@ -39,4 +39,18 @@ public class StringCalculatorTest {
         assertEquals(7, calculator.add("3,4"), "Two numbers should return their sum");
     }
 
+    /**
+     * Test case for adding an unknown number of numbers.
+     * Verifies that the add() method correctly returns the sum
+     * of multiple numbers provided as a comma-separated string.
+     */
+    @Test
+    public void testUnknownNumberOfNumbers() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("1,2,3"), "Sum of unknown number of numbers should be correct");
+        assertEquals(10, calculator.add("1,2,3,4"), "Sum of unknown number of numbers should be correct");
+        assertEquals(32, calculator.add("1,2,3,5,10,11"), "Sum of unknown number of numbers should be correct");
+    }
+
+
 }
