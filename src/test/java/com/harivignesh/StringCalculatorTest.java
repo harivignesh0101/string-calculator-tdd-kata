@@ -111,6 +111,18 @@ public class StringCalculatorTest {
         assertEquals(1002, calculator.add("1000,2"), "Number 1000 should be included in the sum");
     }
 
+    /**
+     * Test case for handling custom delimiters of any length in the input string.
+     * Verifies that the add() method correctly interprets custom delimiters
+     * specified in the format "//[delimiter]\n[numbers...]", ensuring the sum
+     * is calculated accurately for inputs with custom delimiters of varying lengths.
+     */
+    @Test
+    public void testCustomDelimiterAnyLength() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("//[|||]\n1|||2|||3"), "Custom delimiter of any length should work");
+        assertEquals(10, calculator.add("//[***]\n2***3***5"), "Custom delimiter of any length should work");
+    }
 
 
 }
