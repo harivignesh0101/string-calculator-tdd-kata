@@ -2,6 +2,7 @@ package com.harivignesh;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class StringCalculatorTest {
 
@@ -65,7 +66,6 @@ public class StringCalculatorTest {
         assertEquals(10, calculator.add("1,2\n3,4"), "Mix of commas and new lines should work");
     }
 
-
     /**
      * Test case for handling custom delimiters in the input string.
      * Verifies that the add() method correctly interprets custom delimiters
@@ -77,6 +77,27 @@ public class StringCalculatorTest {
         StringCalculator calculator = new StringCalculator();
         assertEquals(3, calculator.add("//;\n1;2"), "Custom delimiter should work");
         assertEquals(6, calculator.add("//|\n1|2|3"), "Custom delimiter should work");
+    }
+
+    /**
+     * Test case for handling negative numbers in the input string.
+     * Verifies that the add() method throws an IllegalArgumentException
+     * with the correct message when negative numbers are included in the input.
+     */
+    @Test
+    public void testNegativeNumbers() {
+        StringCalculator calculator = new StringCalculator();
+        try {
+            assertNotEquals(1, calculator.add("-1,2"), "Negative sums must not work");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Negatives not allowed: [-1]", e.getMessage());
+        }
+        try {
+            int v = calculator.add("2,-4,3,-5");
+            System.out.println(v);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Negatives not allowed: [-4, -5]", e.getMessage());
+        }
     }
 
 
