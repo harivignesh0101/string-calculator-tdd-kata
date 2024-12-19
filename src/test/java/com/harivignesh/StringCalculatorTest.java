@@ -124,5 +124,18 @@ public class StringCalculatorTest {
         assertEquals(10, calculator.add("//[***]\n2***3***5"), "Custom delimiter of any length should work");
     }
 
+    /**
+     * Test case for handling new line delimiters in the input string.
+     * Verifies that the add() method correctly interprets new lines
+     * as valid delimiters alongside commas, ensuring the sum is calculated
+     * accurately for inputs with mixed delimiters.
+     */
+    @Test
+    public void testMultipleDelimiters() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("//[|][%]\n1|2%3"), "Multiple delimiters should work");
+        assertEquals(10, calculator.add("//[*][#]\n4*3#3"), "Multiple delimiters should work");
+    }
+
 
 }
