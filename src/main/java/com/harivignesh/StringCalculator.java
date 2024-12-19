@@ -15,11 +15,21 @@ public class StringCalculator {
      *
      * <b>Behavior:</b>
      * <ul>
+     *   <li>An empty input string returns <code>0</code>.</li>
+     *   <li>The default delimiters are a comma (<code>","</code>) and a newline character (<code>"\n"</code>).</li>
+     *   <li>A custom delimiter can be specified using the format <code>"//[delimiter]\n[numbers]"</code>.
+     *       <ul>
+     *         <li>For a single-character delimiter: <code>"//;\n1;2"</code>.</li>
+     *         <li>For multi-character delimiters, enclose the delimiter in square brackets: <code>"//[***]\n1***2***3"</code>.</li>
+     *       </ul>
+     *   </li>
+     *   <li>Ignores numbers greater than <code>1000</code>.</li>
+     *   <li>If the input contains negative numbers, an {@link IllegalArgumentException} is thrown,
+     *       and the exception message includes a list of the negative numbers.</li>
      *   <li>Empty string returns 0.</li>
      *   <li>Default delimiters are "," and "\\n".</li>
      *   <li>Custom delimiters can be defined using "//[delimiter]\\n" syntax (e.g., "//;\\n1;2").</li>
      *   <li>If the string contains negative numbers, an {@link IllegalArgumentException} is thrown with a list of negative numbers.</li>
-     *   <li>Ignores values greater than 1000</li>
      * </ul>
      *
      * @param numbers the string containing the numbers to be added. May include custom or default delimiters.
@@ -30,13 +40,20 @@ public class StringCalculator {
         if (numbers.isEmpty()) {
             return 0;
         }
+
         String delimiter = ",|\\n";
         if (numbers.startsWith("//")) {
             int delimiterIndex = numbers.indexOf("\n");
-            delimiter = numbers.substring(2, delimiterIndex);
-            delimiter = java.util.regex.Pattern.quote(delimiter); // Escape special regex characters in the delimiter
+            String delimiterPart = numbers.substring(2, delimiterIndex);
+            if (delimiterPart.startsWith("[") && delimiterPart.endsWith("]")) {
+                delimiter = delimiterPart.substring(1, delimiterPart.length() - 1); // Extract delimiter without brackets
+                delimiter = java.util.regex.Pattern.quote(delimiter); // Escape special regex characters
+            } else {
+                delimiter = java.util.regex.Pattern.quote(delimiterPart); // Single-character delimiter
+            }
             numbers = numbers.substring(delimiterIndex + 1);
         }
+
         String[] parts = numbers.split(delimiter);
         int sum = 0;
         List<Integer> negatives = new ArrayList<>();
