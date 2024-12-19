@@ -19,6 +19,7 @@ public class StringCalculator {
      *   <li>Default delimiters are "," and "\\n".</li>
      *   <li>Custom delimiters can be defined using "//[delimiter]\\n" syntax (e.g., "//;\\n1;2").</li>
      *   <li>If the string contains negative numbers, an {@link IllegalArgumentException} is thrown with a list of negative numbers.</li>
+     *   <li>Ignores values greater than 1000</li>
      * </ul>
      *
      * @param numbers the string containing the numbers to be added. May include custom or default delimiters.
