@@ -27,4 +27,16 @@ public class StringCalculatorTest {
         assertEquals(5, calculator.add("5"), "Single number should return the number itself");
     }
 
+    /**
+     * Test case for adding two numbers.
+     * Verifies that the add() method correctly returns the sum
+     * of two numbers provided as a comma-separated string.
+     */
+    @Test
+    public void testTwoNumbers() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(3, calculator.add("1,2"), "Two numbers should return their sum");
+        assertEquals(7, calculator.add("3,4"), "Two numbers should return their sum");
+    }
+
 }
