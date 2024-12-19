@@ -66,5 +66,18 @@ public class StringCalculatorTest {
     }
 
 
+    /**
+     * Test case for handling custom delimiters in the input string.
+     * Verifies that the add() method correctly interprets custom delimiters
+     * specified in the format "//[delimiter]\n[numbers...]", ensuring the sum
+     * is calculated accurately for inputs with custom delimiters.
+     */
+    @Test
+    public void testCustomDelimiter() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(3, calculator.add("//;\n1;2"), "Custom delimiter should work");
+        assertEquals(6, calculator.add("//|\n1|2|3"), "Custom delimiter should work");
+    }
+
 
 }
