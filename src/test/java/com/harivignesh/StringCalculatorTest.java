@@ -93,8 +93,7 @@ public class StringCalculatorTest {
             assertEquals("Negatives not allowed: [-1]", e.getMessage());
         }
         try {
-            int v = calculator.add("2,-4,3,-5");
-            System.out.println(v);
+            calculator.add("2,-4,3,-5");
         } catch (IllegalArgumentException e) {
             assertEquals("Negatives not allowed: [-4, -5]", e.getMessage());
         }
