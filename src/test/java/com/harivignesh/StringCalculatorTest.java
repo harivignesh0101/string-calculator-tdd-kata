@@ -15,4 +15,16 @@ public class StringCalculatorTest {
         assertEquals(0, calculator.add(""), "Empty string should return 0");
     }
 
+    /**
+     * Test case for a single number input.
+     * Verifies that the add() method returns the number itself
+     * when a single number is provided as input.
+     */
+    @Test
+    public void testSingleNumber() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(1, calculator.add("1"), "Single number should return the number itself");
+        assertEquals(5, calculator.add("5"), "Single number should return the number itself");
+    }
+
 }
