@@ -137,5 +137,18 @@ public class StringCalculatorTest {
         assertEquals(10, calculator.add("//[*][#]\n4*3#3"), "Multiple delimiters should work");
     }
 
+    /**
+     * Test case for handling multiple custom delimiters of any length.
+     * Verifies that the add() method correctly interprets multiple custom delimiters
+     * specified in the format "//[delimiter1][delimiter2]\n[numbers...]", ensuring the sum
+     * is calculated accurately for inputs with multiple delimiters of varying lengths.
+     */
+    @Test
+    public void testMultipleDelimitersAnyLength() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("//[***][%%%]\n1***2%%%3"), "Multiple delimiters of any length should work");
+        assertEquals(15, calculator.add("//[!!][@@@]\n5!!5@@@5"), "Multiple delimiters of any length should work");
+    }
+
 
 }
