@@ -43,14 +43,23 @@ public class StringCalculator {
         }
 
         String delimiter = ",|\\n";
+        boolean isMultiplication = false;
         if (numbers.startsWith("//")) {
             int delimiterIndex = numbers.indexOf("\n");
             String delimiterPart = numbers.substring(2, delimiterIndex);
+            if (delimiterPart.equals("*")) {
+                isMultiplication = true;
+            }
             if (delimiterPart.startsWith("[") && delimiterPart.endsWith("]")) {
                 String[] delimiters = delimiterPart.substring(1, delimiterPart.length() - 1).split("]\\[");
-                delimiter = String.join("|", Arrays.stream(delimiters)
-                        .map(java.util.regex.Pattern::quote)
-                        .toArray(String[]::new));
+                if (delimiters.length == 1 && delimiters[0].equals("*")) {
+                    isMultiplication = true;
+                    delimiter = java.util.regex.Pattern.quote("*");
+                } else {
+                    delimiter = String.join("|", Arrays.stream(delimiters)
+                            .map(java.util.regex.Pattern::quote)
+                            .toArray(String[]::new));
+                }
             } else {
                 delimiter = java.util.regex.Pattern.quote(delimiterPart); // Single-character delimiter
             }
@@ -58,14 +67,18 @@ public class StringCalculator {
         }
 
         String[] parts = numbers.split(delimiter);
-        int sum = 0;
+        int sum = isMultiplication ? 1 : 0;
         List<Integer> negatives = new ArrayList<>();
         for (String part : parts) {
             int num = Integer.parseInt(part);
             if (num < 0) {
                 negatives.add(num);
             } else if (num <= 1000) {
-                sum += num;
+                if (isMultiplication) {
+                    sum *= num;
+                } else {
+                    sum += num;
+                }
             }
         }
         if (!negatives.isEmpty()) {
@@ -73,5 +86,6 @@ public class StringCalculator {
         }
         return sum;
     }
+    // (!numbers.matches("^((//\\[.*?\\]\n)?\\d+([,\\n;]*)?)+$"))
 
 }

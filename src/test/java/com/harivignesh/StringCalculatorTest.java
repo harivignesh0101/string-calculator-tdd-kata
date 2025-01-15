@@ -79,6 +79,13 @@ public class StringCalculatorTest {
         assertEquals(6, calculator.add("//|\n1|2|3"), "Custom delimiter should work");
     }
 
+    @Test
+    public void testCustomDelimiterWithAsterix() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(24, calculator.add("//*\n1*2*3*4"), "Custom delimiter should work");
+        assertEquals(24, calculator.add("//[*]\n1*2*3*4"), "Custom delimiter should work");
+    }
+
     /**
      * Test case for handling negative numbers in the input string.
      * Verifies that the add() method throws an IllegalArgumentException
