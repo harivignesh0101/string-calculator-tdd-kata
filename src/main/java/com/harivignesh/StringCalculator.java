@@ -67,23 +67,18 @@ public class StringCalculator {
         }
 
         String[] parts = numbers.split(delimiter);
-        int sum = isMultiplication ? 1 : 0;
         List<Integer> negatives = new ArrayList<>();
-        for (String part : parts) {
-            int num = Integer.parseInt(part);
-            if (num < 0) {
-                negatives.add(num);
-            } else if (num <= 1000) {
-                boolean allowAction = startNumber == null || endNumber == null || (num >= startNumber && num <= endNumber);
-                if (allowAction) {
-                    if (isMultiplication) {
-                        sum *= num;
-                    } else {
-                        sum += num;
-                    }
-                }
-            }
-        }
+        boolean finalIsMultiplication = isMultiplication;
+
+        int sum = Arrays.stream(parts)
+                .mapToInt(Integer::parseInt)
+                .peek(num -> {
+                    if (num < 0) negatives.add(num);
+                })
+                .filter(num -> num >= 0 && num <= 1000)
+                .filter(num -> startNumber == null || endNumber == null || (num >= startNumber && num <= endNumber))
+                .reduce(isMultiplication ? 1 : 0, (acc, num) -> finalIsMultiplication ? acc * num : acc + num);
+
         if (!negatives.isEmpty()) {
             throw new IllegalArgumentException("Negatives not allowed: " + negatives);
         }
