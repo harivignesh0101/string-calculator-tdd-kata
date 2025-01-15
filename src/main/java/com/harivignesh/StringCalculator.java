@@ -37,7 +37,7 @@ public class StringCalculator {
      * @return the sum of the numbers as an integer, or 0 if the string is empty.
      * @throws IllegalArgumentException if the input contains negative numbers, including the list of negatives in the exception message.
      */
-    public int add(String numbers) {
+    public int add(String numbers, Integer startNumber, Integer endNumber) {
         if (numbers.isEmpty()) {
             return 0;
         }
@@ -74,10 +74,13 @@ public class StringCalculator {
             if (num < 0) {
                 negatives.add(num);
             } else if (num <= 1000) {
-                if (isMultiplication) {
-                    sum *= num;
-                } else {
-                    sum += num;
+                boolean allowAction = startNumber == null || endNumber == null || (num >= startNumber && num <= endNumber);
+                if (allowAction) {
+                    if (isMultiplication) {
+                        sum *= num;
+                    } else {
+                        sum += num;
+                    }
                 }
             }
         }
@@ -86,6 +89,12 @@ public class StringCalculator {
         }
         return sum;
     }
+
+    public int add(String number) {
+        return add(number, null, null);
+    }
     // (!numbers.matches("^((//\\[.*?\\]\n)?\\d+([,\\n;]*)?)+$"))
+
+
 
 }

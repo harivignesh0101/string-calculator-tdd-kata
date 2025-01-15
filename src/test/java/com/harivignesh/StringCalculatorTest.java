@@ -157,5 +157,10 @@ public class StringCalculatorTest {
         assertEquals(15, calculator.add("//[!!][@@@]\n5!!5@@@5"), "Multiple delimiters of any length should work");
     }
 
+    @Test
+    public void testResultWithMinAndMaxValues() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(15, calculator.add("1,2,3,10,20", 2, 15 ), "Custom delimiter of any length should work");
+    }
 
 }
